@@ -1,4 +1,4 @@
-defmodule TodoList.MixProject do
+defmodule TodoList42.MixProject do
   use Mix.Project
 
   def project do
