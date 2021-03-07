@@ -19,6 +19,10 @@ defmodule TodoList do
   """
   def new, do: %TodoList{}
 
+  def new(entries) do
+    Enum.reduce(entries, %TodoList{}, &add_entry(&2, &1))
+  end
+
   @doc """
   Adds a new entry to the given TodoList
   """
