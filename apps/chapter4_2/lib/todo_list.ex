@@ -61,4 +61,17 @@ defmodule TodoList do
     |> Stream.filter(fn {_, entry} -> entry.date == date end)
     |> Enum.map(fn {id, entry} -> %TodoEntry{id: id, value: entry} end)
   end
+
+  defimpl Collectable, for: TodoList do
+    def into(original) do
+      {original, &into_callback/2}
+    end
+
+    defp into_callback(todo_list, {:cont, entry}) do
+      TodoList.add_entry(todo_list, entry)
+    end
+
+    defp into_callback(todo_list, :done), do: todo_list
+    defp into_callback(_, :halt), do: :ok
+  end
 end
