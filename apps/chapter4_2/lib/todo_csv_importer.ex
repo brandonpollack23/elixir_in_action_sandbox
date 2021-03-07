@@ -8,7 +8,9 @@ defmodule TodoList.CsvImporter do
     path
     |> File.stream!()
     |> Stream.map(&String.split(&1, ~r/,/))
-    |> Stream.map(fn [date, title] -> %{date: date, title: title} end)
+    |> Stream.map(fn [date, title] -> %{date: date, title: remove_newline(title)} end)
     |> Enum.to_list()
   end
+
+  def remove_newline(str), do: String.replace(str, "\n", "")
 end
