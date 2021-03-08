@@ -62,6 +62,10 @@ defmodule TodoList do
     |> Enum.map(fn {id, entry} -> %TodoEntry{id: id, value: entry} end)
   end
 
+  def get_all(%TodoList{entries: entries}) do
+    entries
+  end
+
   defimpl Collectable, for: TodoList do
     def into(original) do
       {original, &into_callback/2}
